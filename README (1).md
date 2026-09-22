@@ -16,7 +16,7 @@ flowchart TD
     I -->|Yes| J[Low stock flagged]
     A2[Manual: New Order] --> K
     J --> K[Reorder details: qty, delivery notes]
-    K --> K2{Supplier linked?}
+    K --> K2{Materials supplied by approved suppliers?}
 
     K2 -->|Yes| L2[Generate RFQ]
     L2 --> L3[Send to one or more suppliers]
