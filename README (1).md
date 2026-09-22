@@ -16,7 +16,9 @@ flowchart TD
     I -->|Yes| J[Low stock flagged]
     A2[Manual: New Order] --> K
     J --> K[Reorder details: qty, delivery notes]
-    K --> L2[Generate RFQ]
+    K --> K2{Supplier linked?}
+
+    K2 -->|Yes| L2[Generate RFQ]
     L2 --> L3[Send to one or more suppliers]
     L3 --> L4[Quotes received]
     L4 --> L5{More than one quote?}
@@ -24,16 +26,26 @@ flowchart TD
     L5 -->|No| L7[Review single quote]
     L6 --> L8[Select supplier]
     L7 --> L8
-    L8 --> L9{Above spending threshold?}
-    L9 -->|No| L10[RFQ auto-approved]
+    L8 --> PriceSet[Price determined]
+
+    K2 -->|No, e.g. local supermarket run| DefP[Use default price]
+    DefP --> PriceSet
+
+    PriceSet --> L9{Above spending threshold?}
+    L9 -->|No| L10[Auto-approved]
     L9 -->|Yes| L11[Owner/Manager approval required]
     L11 --> L10
-    L10 --> P[Order created]
 
+    L10 --> Fork{Supplier order or self-purchase?}
+    Fork -->|Supplier order| P[Order created]
     P --> Q[Status: Placed]
     Q --> Q2[Status: Received by supplier]
     Q2 --> R{Needs preparation?}
     R -->|Yes| T[Status: Preparing]
     R -->|No| U[Status: Delivered]
     T --> U
+
+    Fork -->|Self-purchase| SP[Approved for purchase]
+    SP --> SP2[Owner/staff buys item in person]
+    SP2 --> SP3[Mark as purchased — stock updated]
 ```
