@@ -13,6 +13,7 @@ flowchart TD
     H2 --> G
 
     C --> I{Stock below reorder level?}
+    I --> I2{Direct purchase of low stock}
     I -->|Yes| J[Low stock flagged]
     A2[Manual: New Order] --> K
     J --> K[Reorder details: qty, delivery notes]
