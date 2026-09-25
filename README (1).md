@@ -15,7 +15,7 @@ flowchart TD
     C --> I{Stock below reorder level?}
     I -->|Yes| J[Low stock flagged]
     I --> |Or| I2[Direct in-person purchase of low stock from local supermarket]
-    I2 -- I3[Upload/present receipt - stock unit update]
+    I2 --> I3[Upload/present receipt - stock unit update]
     A2[Manual: New Order] --> K
     J --> K[Reorder details: qty, delivery notes]
     K --> K2{Materials supplied by approved suppliers?}
