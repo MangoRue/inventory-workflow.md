@@ -13,7 +13,8 @@ flowchart TD
     H2 --> G
 
     C --> I{Stock below reorder level?}
-    I --> I2{Direct purchase of low stock}
+    I --> |Or| I2[Direct in-person purchase of low stock from local supermarket]
+    I2 -- I3[Upload/present receipt - stock unit update]
     I -->|Yes| J[Low stock flagged]
     A2[Manual: New Order] --> K
     J --> K[Reorder details: qty, delivery notes]
@@ -46,7 +47,6 @@ flowchart TD
     R -->|No| U[Status: Delivered]
     T --> U
 
-    Fork -->|Self-purchase| SP[Approved for purchase]
-    SP --> SP2[Owner/staff buys item in person]
-    SP2 --> SP3[Mark as purchased — stock updated]
+    Fork -->|Direct purchase from local supermarket| SP[Owner/staff buys item in person]
+    SP --> SP2[Upload/present receipt - stock unit update]
 ```
